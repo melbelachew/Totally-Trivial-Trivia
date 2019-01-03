@@ -1,0 +1,12 @@
+body {
+background-color: pink;
+text-align: center;
+color: blue;
+}
+
+.mainContainer {
+    background-color: yellow;
+    width: 70%;
+    margin: 0 0 0 10%;
+    align-content: center;
+}
