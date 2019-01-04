@@ -1,6 +1,6 @@
 var trivia = $('.gameDiv')
     var questions = [{
-        triviaQuestion: 'Cairo is the capital of Ethiopa?',
+        triviaQuestion: 'Cairo is the capital of Ethiopia?',
          mutlChoice: ['True', 'False'],
            answer: "False"
     }, {
@@ -12,8 +12,6 @@ var trivia = $('.gameDiv')
         mutlChoice: ['True', 'False'],
         answer: "True"
     }]
-
-
 
 
 function startTimer(duration, display) {
@@ -31,16 +29,13 @@ function startTimer(duration, display) {
             timer = duration;
         }
     }, 1000);
-
-    if (timer ===0){
-        console.log(done)
     }
-}
+
 
 $("#startGame").click(function(){
-    var fifeMinutes = 60 * 5,
+    var oneMinute = 60 * 1,
     display = document.querySelector('#time');
-    startTimer(fifeMinutes, display);
+    startTimer(oneMinute, display);
 
 
 
@@ -51,56 +46,54 @@ for (var i = 0; i < questions.length; i++) {
         "' value='" + questions[i].mutlChoice[j] + "''>" + questions[i].mutlChoice[j]);
       }
     }
+
     trivia.append("<button id='done'>Done</button>")});
 
-//     var score = {
-//         correct: 0,
-//         incorrect: 0,
-//         counter: 30,
-//         countdown: function() {
-//           score.counter--;
-//           $("#counter-number").html(score.counter);
-//           if (score.counter === 0) {
-//             console.log("TIME UP");
-//             score.done();
-//           };
+    var game = {
+        correct: 0,
+        incorrect: 0,}
 
-// function done(){
-//     $.each($("input[name='question-0']:checked"), function() {
-//       if ($(this).val() === questions[0].answer) {
-//         score.correct++;
-//       }
-//       else {
-//         score.incorrect++;
-//       }
-//     });
-//     $.each($("input[name='question-1']:checked"), function() {
-//       if ($(this).val() === questions[1].answer) {
-//         score.correct++;
-//       }
-//       else {
-//         score.incorrect++;
-//       }
-//     });
-//     $.each($("input[name='question-2']:checked"), function() {
-//       if ($(this).val() === questions[2].correctAnswer) {
-//         score.correct++;
-//       }
-//       else {
-//         score.incorrect++;
-//       }
-//     });
-//     this.result();
+    function done(){
+        $.each($("input[name='question-0']:checked"), function() {
+            if ($(this).val() === questions[0].answer) {
+              console.log(game.correct++)
+            }
+            else {
+              game.incorrect++;
+            }
+          });
+          $.each($("input[name='question-1']:checked"), function() {
+            if ($(this).val() === questions[1].answer) {
+              game.correct++;
+            }
+            else {
+              game.incorrect++;
+            }
+          });
+          $.each($("input[name='question-2']:checked"), function() {
+            if ($(this).val() === questions[2].answer) {
+              game.correct++;
+            }
+            else {
+              game.incorrect++;
+            }
+          });
+    
+      
+         function result() {
+          clearInterval(timer);
+          $("#gameDiv").remove();
+          trivia.html("<h2>All Done!</h2>");
+          trivia.append("<h3>Correct Answers: " + this.correct + "</h3>");
+          trivia.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
+          trivia.append("<h3>Unanswered: " + (questions.length - (this.incorrect + this.correct)) + "</h3>");
+        }
 
-// function result() {
-//     clearInterval(timer);
-//     $(".gameDive").remove();
-//     trivia.html("<h2>All Done!</h2>");
-//     trivia.append("<h3>Correct Answers: " + this.correct + "</h3>");
-//     trivia.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
-//     trivia.append("<h3>Unanswered: " + (questions.length - (this.incorrect + this.correct)) + "</h3>")
-// }
-// }
-// $(document).on("click", "#done", function() {
-//     score.done();
-//   })
+    }
+
+    $(document).on("click", "#startGame", function() {
+        startTimer();
+      });
+      $(document).on("click", "#done", function() {
+        done();
+      });
